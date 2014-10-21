@@ -255,6 +255,7 @@ typedef struct _jl_module_t {
     htable_t bindings;
     arraylist_t usings;  // modules with all bindings potentially imported
     jl_array_t *constant_table;
+    uint64_t uuid;
 } jl_module_t;
 
 typedef struct _jl_methlist_t {
