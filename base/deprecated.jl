@@ -205,3 +205,9 @@ end
 @deprecate itrunc{T<:Integer}(::Type{T}, n::Integer) (n % T)
 
 @deprecate oftype{T}(::Type{T},c)  convert(T,c)
+
+function finalizer(o::Any, f::Union(Function,Ptr))
+    depwarn("finalizer(o::Any, f::Union(Function,Ptr)) is deprecated, " *
+            "use finalizer(f::Union(Function,Ptr), o::Any) instead", :finalizer)
+    finalizer(f, o)
+end
