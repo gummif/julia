@@ -16,6 +16,18 @@ start(t::Tuple) = 1
 done(t::Tuple, i::Int) = (length(t) < i)
 next(t::Tuple, i::Int) = (t[i], i+1)
 
+eachindex(t::Tuple) = 1:length(t)
+
+function eachindex(t::Tuple, t2::Tuple...)
+    @_inline_meta
+    1:_maxlength(t, t2...)
+end
+_maxlength(A::Tuple) = length(A)
+function _maxlength(A::Tuple, B::Tuple, C::Tuple...)
+    @_inline_meta
+    max(length(A), _maxlength(B, C...))
+end
+
 # this allows partial evaluation of bounded sequences of next() calls on tuples,
 # while reducing to plain next() for arbitrary iterables.
 indexed_next(t::Tuple, i::Int, state) = (t[i], i+1)

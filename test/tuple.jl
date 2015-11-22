@@ -49,7 +49,10 @@
 @test_throws BoundsError next((5,6,7), 0)
 @test_throws BoundsError next((), 1)
 
+## eachindex ##
 
+@test collect(eachindex((2,5,"foo"))) == collect(1:3)
+@test collect(eachindex((2,5,"foo"), (1,2,5,7))) == collect(1:4)
 
 ## eltype ##
 @test eltype((1,2,3)) === Int
